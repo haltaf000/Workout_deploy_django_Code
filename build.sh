@@ -1,16 +1,10 @@
 #!/usr/bin/env bash
 set -o errexit
 
-# Create persistent SQLite directory
-mkdir -p /var/lib/sqlite
-chmod 777 /var/lib/sqlite
-
-# Regular build commands
 pip install -r requirements.txt
 python manage.py collectstatic --noinput
 python manage.py migrate
 
-# Superuser creation
 if [[ $CREATE_SUPERUSER == "true" ]]; then
     python manage.py createsuperuser --noinput \
         --username $DJANGO_SUPERUSER_USERNAME \
