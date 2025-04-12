@@ -3,7 +3,7 @@ from pathlib import Path
 from .settings import *
 from .settings import BASE_DIR
 
-render_hostname = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+render_hostname = [os.environ.get("RENDER_EXTERNAL_HOSTNAME")]
 
 ALLOWED_HOSTS = [render_hostname]
 CSRF_TRUSTED_ORIGINS = [f"https://{render_hostname}"]
