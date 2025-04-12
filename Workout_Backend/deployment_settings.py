@@ -1,14 +1,15 @@
 import os
-import dj_database_url
+from pathlib import Path
 from .settings import *
 from .settings import BASE_DIR
 
-ALLOWED_HOSTS = [os.environ.get["RENDER_EXTERNAL_HOSTNAME"]]
-CSRF_TRUSTED_ORIGINS = ["https://"+os.environ.get["RENDER_EXTERNAL_HOSTNAME"]]
+render_hostname = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+
+ALLOWED_HOSTS = [render_hostname]
+CSRF_TRUSTED_ORIGINS = [f"https://{render_hostname}"]
 
 DEBUG = False
-SECRET_KEY = os.environ.get("SECRET_KEY")
-
+SECRET_KEY = os.environ.get("SECRET_KEY", "fallback-secret-key")
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -22,22 +23,22 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
+# Uncomment and customize CORS_ALLOWED_ORIGINS if needed
 # CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
 
-
 STORAGES = {
-    "default":{
-        "BACKEND" : "django.core.files.storage.FileSystemStorage",
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND" : "whitenoise.storage.CompressedStaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     }
 }
 
+# Switch to using SQLite instead of PostgreSQL
 DATABASES = {
-    "default": dj_database_url.config(
-        default=os.environ.get["DATABASE_URL"],
-        conn_max_age=600
-    )
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    }
 }
