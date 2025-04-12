@@ -5,7 +5,7 @@ from .settings import BASE_DIR
 
 render_hostname = [os.environ.get("RENDER_EXTERNAL_HOSTNAME")]
 
-ALLOWED_HOSTS = [render_hostname]
+ALLOWED_HOSTS = [render_hostname, 'workout-frontend-e4vi.onrender.com', 'workoutgenerator-5hjc.onrender.com', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = [f"https://{render_hostname}"]
 
 DEBUG = False

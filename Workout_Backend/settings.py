@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-m*+99r_sa)udra2mc)7n$u51n_-!yn^#4&ts#uh3u@9m1(dais
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['workout-frontend-e4vi.onrender.com', 'workoutgenerator-5hjc.onrender.com', '127.0.0.1']
 
 
 # Application definition
