@@ -9,6 +9,23 @@ from .views import (
 )
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+from django.http import JsonResponse
+
+def api_root(request):
+    return JsonResponse({
+        "message": "Welcome to the Workout API!",
+        "endpoints": [
+            "token/ - Obtain JWT token",
+            "token/refresh/ - Refresh JWT token",
+            "register/ - Register a new user",
+            "user/me/ - Get current user info",
+            "exercises/ - List and create exercises",
+            "exercises/<id>/ - Retrieve, update, or delete an exercise",
+            "workout-plans/ - List and create workout plans",
+            "workout-plans/<id>/ - Retrieve, update, or delete a workout plan"
+        ]
+    })
+
 urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
@@ -18,4 +35,5 @@ urlpatterns = [
     path('exercises/<int:pk>/', ExerciseDetailView.as_view(), name='exercise-detail'),
     path('workout-plans/', WorkoutPlanListCreateView.as_view(), name='workout-plan-list-create'),
     path('workout-plans/<int:pk>/', WorkoutPlanDetailView.as_view(), name='workout-plan-detail'),
+    path('', api_root, name='api-root'),  # Default route for 'api/'
 ]
